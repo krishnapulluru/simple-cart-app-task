@@ -17,7 +17,6 @@ body {
 }
 
 .container {
-  padding: 0px 60px;
   height: 100vh;
   background-color: #ececec;
 }
@@ -40,8 +39,17 @@ body {
   opacity: 0.9;
 }
 
+.content-container {
+  margin: 10px 30px;
+  padding: 10px;
+  background: linear-gradient(90deg, #74ebd5 0%, #acb6e5 100%);
+  box-shadow: 0 5px 6px 0 gray;
+  border-radius: 10px;
+  height: calc(100vh - 75px);
+}
+
 @media(max-width: 600px) {
-  .container {
-    padding: 0px;
+  .content-container {
+    margin: 5px 0px;
   }
 }

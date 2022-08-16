@@ -1,8 +1,7 @@
 .header-cont {
-    background: #ffffff;
+    background: linear-gradient(90deg, #c9d6ff 0%, #e2e2e2 100%);
     box-shadow: 0 5px 6px 0 gray;
 }
-
 
 .header-cont nav {
     padding: 10px;
@@ -20,7 +19,7 @@
 
 .header-cont>nav>.head-links>ul>li>a {
     text-decoration: none;
-    color: #000;
+    color: var(--black);
     font-weight: 600;
 }
 
@@ -29,14 +28,15 @@
     min-width: 100px;
     font-weight: bold;
     color: #fff;
+    border: none;
 }
 
 .header-cont>nav>.head-btns>button:first-child {
-    background: #22b0db;
+    background: var(--blue);
 }
 
 .header-cont>nav>.head-btns>button:last-child {
-    background: #9122db;
+    background: var(--green);
 }
 
 @media (max-width: 600px) {

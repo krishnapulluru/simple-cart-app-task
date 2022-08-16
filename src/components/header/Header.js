@@ -1,6 +1,6 @@
 import React from "react";
 import "./header.css";
-
+import { Link } from "react-router-dom";
 const Header = () => {
     return (
         <header className="header-cont">
@@ -11,10 +11,10 @@ const Header = () => {
                 <div className="head-links">
                     <ul className="align">
                         <li>
-                            <a href="#">Products</a>
+                            <Link to="products-view">Prodcuts List</Link>
                         </li>
                         <li>
-                            <a href="#">Products List</a>
+                            <Link to="products-add">Products Add</Link>
                         </li>
                     </ul>
                 </div>
