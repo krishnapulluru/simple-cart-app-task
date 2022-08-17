@@ -51,5 +51,6 @@ body {
 @media(max-width: 600px) {
   .content-container {
     margin: 5px 0px;
+    height: auto;
   }
 }

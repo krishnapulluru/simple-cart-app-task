@@ -5,10 +5,10 @@ function App() {
     return (
         <div className="container">
             <Header />
-            <div className="content-container">
+            <main className="content-container">
                 {" "}
                 <Outlet />
-            </div>
+            </main>
         </div>
     );
 }
