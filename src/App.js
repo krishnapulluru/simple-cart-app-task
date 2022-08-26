@@ -6,7 +6,6 @@ function App() {
         <div className="container">
             <Header />
             <main className="content-container">
-                {" "}
                 <Outlet />
             </main>
         </div>

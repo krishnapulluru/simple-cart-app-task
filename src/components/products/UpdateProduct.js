@@ -1,18 +1,29 @@
-import React, { useRef, useState } from "react";
+import React from "react";
+import { useParams } from "react-router-dom";
 
-export default function AddProducts() {
-    // Reference are creating to the form file upload using useRef Hook
-    const productImageRef = useRef("");
+const getLocalProducts = () => {
+    let list = localStorage.getItem("products-list");
+    if (list) {
+        return JSON.parse(localStorage.getItem("products-list"));
+    } else {
+        return [];
+    }
+};
+let firstRender = 3;
+const UpdateProduct = () => {
+    const { productId } = useParams();
+    const [prods, setProds] = React.useState(getLocalProducts());
+    const selectProduct = prods.filter((product) => productId === product.id);
+    const productImageRef = React.useRef("");
 
-    // useState Hook is used to store the form Data
-    const [data, setProductsData] = useState({
-        productCategory: "",
-        productName: "",
-        productRating: "",
-        productDisc: "",
-        productImage: "",
-        productPrice: "",
-        id: new Date().getTime().toString(),
+    const [data, setProductsData] = React.useState({
+        productCategory: selectProduct[0].productCategory,
+        productName: selectProduct[0].productName,
+        productRating: selectProduct[0].productRating,
+        productDisc: selectProduct[0].productDisc,
+        productImage: selectProduct[0].productImage,
+        productPrice: selectProduct[0].productPrice,
+        id: selectProduct[0].id,
     });
 
     // Updating state values
@@ -33,6 +44,7 @@ export default function AddProducts() {
                 setProductsData({
                     ...data,
                     [e.target.name]: reader.result,
+                    productImageName: productImageRef.current.value,
                 });
             });
             reader.readAsDataURL(e.target.files[0]);
@@ -46,32 +58,34 @@ export default function AddProducts() {
 
     const submitHandler = (e) => {
         e.preventDefault();
-
-        // Getting the product list from local storage. if products list is null then it returns empty array
-        const products = JSON.parse(
-            localStorage.getItem("products-list") || "[]"
-        );
-        //  Pushing the current product data to get array
-        products.push(data);
-
-        // setting updated list to local storage
-        localStorage.setItem("products-list", JSON.stringify(products));
-        // Success Alert
-        alert("Product Saved to Storage");
-        // Resetting form data
-        productImageRef.current.value = "";
-        setProductsData({
-            ...data,
-            productCategory: "",
-            productName: "",
-            productRating: "",
-            productDisc: "",
-            productImage: "",
-            productPrice: "",
-            productImageName: productImageRef.current.value,
-            id: new Date().getTime().toString(),
+        const newProds = prods.map((item) => {
+            if (item.id === data.id) {
+                return {
+                    ...item,
+                    productCategory: data.productCategory,
+                    productName: data.productName,
+                    productRating: data.productRating,
+                    productDisc: data.productDisc,
+                    productImage: data.productImage,
+                    productPrice: data.productPrice,
+                };
+            }
+            return item;
         });
+        setProds(newProds);
     };
+
+    React.useEffect(() => {
+        if (firstRender > 0) {
+            firstRender--;
+        } else {
+            // setting updated list to local storage
+            localStorage.setItem("products-list", JSON.stringify(prods));
+            // Success Alert
+            alert("Product Updated to Successfully");
+        }
+    }, [prods]);
+
     return (
         <div className="form-cont">
             <form onSubmit={submitHandler}>
@@ -151,20 +165,19 @@ export default function AddProducts() {
                         accept="image/png,image/jpeg,image/jpg"
                         id="productImage"
                         name="productImage"
-                        required={true}
                         ref={productImageRef}
                         onChange={handleFile}
                     />
                 </div>
-                {data.productImage && (
-                    <div className="displayImage">
-                        <img src={data.productImage} alt={productImageRef} />
-                    </div>
-                )}
+                <div className="displayImage">
+                    <img src={data.productImage} alt={productImageRef} />
+                </div>
                 <div>
-                    <input type="submit" value="Add Product" />
+                    <input type="submit" value="Update Product" />
                 </div>
             </form>
         </div>
     );
-}
+};
+
+export default UpdateProduct;

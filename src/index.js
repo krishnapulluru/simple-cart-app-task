@@ -4,6 +4,7 @@ import App from "./App";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AddProducts from "./components/products/AddProducts";
 import ViewProducts from "./components/products/ViewProducts";
+import UpdateProduct from "./components/products/UpdateProduct";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -13,6 +14,10 @@ root.render(
                 <Route path="/" element={<App />}>
                     <Route path="products-view" element={<ViewProducts />} />
                     <Route path="products-add" element={<AddProducts />} />
+                    <Route path="product-update">
+                        <Route path=":productId" element={<UpdateProduct />} />
+                    </Route>
+
                     <Route
                         path="*"
                         element={

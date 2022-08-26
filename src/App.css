@@ -42,10 +42,22 @@ body {
 .content-container {
   margin: 10px 30px;
   padding: 10px;
-  background: linear-gradient(90deg, #74ebd5 0%, #acb6e5 100%);
+  background: #fff;
   box-shadow: 0 5px 6px 0 gray;
   border-radius: 10px;
   height: calc(100vh - 75px);
+  overflow: auto;
+}
+
+.products-emtpy {
+  color: #ed3838;
+  background: #ffdede;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 0 10px orangered;
+  width: 100%;
+  text-align: center;
+  margin: 50px 0px;
 }
 
 @media(max-width: 600px) {
@@ -53,4 +65,22 @@ body {
     margin: 5px 0px;
     height: auto;
   }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c4c4c4;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c5c5c5;
 }

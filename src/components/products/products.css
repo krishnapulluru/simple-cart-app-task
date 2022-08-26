@@ -35,7 +35,9 @@
 
 .form-cont form input,
 .form-cont form select,
-.form-cont form textarea {
+.form-cont form textarea,
+.productsDisp .search input,
+.productsDisp .search select {
     margin-top: 10px;
     display: block;
     padding: 10px 15px;
@@ -60,4 +62,236 @@
 
 ::placeholder {
     color: #949494;
+}
+
+/* Products*/
+.productsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.product-card {
+    width: 100%;
+    height: 600px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 28px #b5b5b5,
+        -5px -5px 28px #ffffff;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10px;
+    position: relative;
+}
+
+.product-image {
+    position: relative;
+}
+
+.product-image>img {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 10px #d7d7d7;
+}
+
+.product-image>span {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    padding: 8px;
+    background: #ba8feb;
+    border-radius: 10px 2px 2px;
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+    box-shadow: 2px 1px 7px #777777;
+}
+
+.product-details>h1 {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 25px;
+    padding: 10px;
+    color: #686262;
+}
+
+.priceDisp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    padding: 5px 10px;
+    color: #ffd700;
+    background: whitesmoke;
+    border-radius: 12px;
+    box-shadow: 0 0 7px lightgrey;
+    margin: 10px 0;
+
+}
+
+.priceDisp>h2>span {
+    font-size: 14px;
+}
+
+
+.product-details>h5 {
+    padding: 10px
+}
+
+.productBtns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: whitesmoke;
+    border-radius: 12px;
+    box-shadow: 0 0 7px lightgrey;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.product-details>p {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0px 10px;
+}
+
+.productBtns>.btn {
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 20px;
+    border: none;
+}
+
+.productBtns>.btn:first-child {
+    background: linear-gradient(90deg, #fc4a1a 0%, #f7b733 100%);
+    color: #fff;
+}
+
+.productBtns>.btn:last-child {
+    background: linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
+    color: #fff;
+}
+
+.productBtns>.btn:hover {
+    border: none;
+}
+
+.topbtn {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.topbtn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.topbtn>button,
+.topbtn>a {
+    padding: 10px;
+    margin: 0 3px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.topbtn>button:first-child,
+.topbtn>a:first-child {
+    background: linear-gradient(90deg, #59d3ff 0%, #4b94a2 100%);
+}
+
+.topbtn>button:last-child,
+.topbtn>a:last-child {
+    background: linear-gradient(230deg, #ff000a 0%, #dc0404 100%);
+}
+
+.topbtn>button:hover,
+.topbtn>a:hover {
+    opacity: 0.87;
+}
+
+/* Rating */
+.ratingDisp {
+    padding: 10px;
+}
+
+.ratingDisp>ul {
+    display: flex;
+}
+
+.ratingDisp>ul>li {
+    list-style-type: none;
+
+}
+
+.ratingDisp>ul>li>svg {
+    filter: drop-shadow(2px 2px 4px #002);
+}
+
+.displayImage>img {
+    width: 100%;
+    height: 300px;
+}
+
+.productsDisp .search {
+    display: flex;
+    background: #f2f2f2;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 5px 2px lightgrey;
+}
+
+.productsDisp .search input,
+.productsDisp .search select {
+    margin: 10px;
+}
+
+
+/* For Responive Design */
+@media (max-width : 600px) {
+    .productsDisp .search {
+        padding: 10px;
+        flex-wrap: wrap;
+    }
+
+    .productsDisp .search input,
+    .productsDisp .search select {
+        margin: 5px 0px;
+    }
+}
+
+@media (min-width : 600px) and (max-width : 920px) {
+    .product-card {
+        width: 50%;
+    }
+}
+
+@media (min-width : 920px) and (max-width : 1040px) {
+    .product-card {
+        width: 30%;
+    }
+}
+
+@media (min-width : 1040px) and (max-width : 1320px) {
+    .product-card {
+        width: 25%;
+    }
+}
+
+@media (min-width : 1320px) {
+    .product-card {
+        width: 20%;
+    }
 }
