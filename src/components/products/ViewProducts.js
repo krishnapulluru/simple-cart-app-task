@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Rating from "./Rating";
+import "./products.css";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "../../store/cartSlice";
+import { wishlistActions } from "../../store/wishList";
 import {
     FaRupeeSign,
     FaPen,
@@ -8,7 +12,6 @@ import {
     FaCartPlus,
     FaHeart,
 } from "react-icons/fa";
-import "./products.css";
 
 let firstRender = true;
 
@@ -23,7 +26,11 @@ const getLocalProducts = () => {
 };
 
 const ProductsView = () => {
+    const wishlistItems = useSelector((state) => state.wishlist.itemsList);
+    const cartItems = useSelector((state) => state.cart.itemsList);
+    // For permanent referance from the storage
     const productsStore = getLocalProducts();
+    // It is used to store displayed products
     const [products, setProducts] = useState(getLocalProducts());
     const [deleteProd, setDeleteProd] = useState(null);
     const [searchData, setSearchData] = useState({
@@ -31,10 +38,38 @@ const ProductsView = () => {
         priceFilter: "",
         ratigFilter: "",
     });
+
     const changeHandler = (e) => {
         setSearchData({ ...searchData, [e.target.name]: e.target.value });
     };
 
+    const dispatch = useDispatch();
+
+    // Adding Cart Products redux store
+    const addToCart = (a) => {
+        const { id, name, price } = a;
+        dispatch(
+            cartActions.addToCart({
+                id,
+                name,
+                price,
+            })
+        );
+    };
+
+    // Adding Wishlist products to redux store
+    const addToWishList = (a) => {
+        const { id, name, category } = a;
+        dispatch(
+            wishlistActions.addToWishlist({
+                id,
+                name,
+                category,
+            })
+        );
+    };
+
+    // Search filter functionality
     useEffect(() => {
         const newProducts = productsStore.filter(
             (product) =>
@@ -74,6 +109,7 @@ const ProductsView = () => {
         }
     }, [searchData]);
 
+    // Delete product functinality
     useEffect(() => {
         if (firstRender) {
             firstRender = false;
@@ -88,6 +124,7 @@ const ProductsView = () => {
         setProducts(newProds);
         localStorage.setItem("products-list", JSON.stringify(newProds));
     }, [deleteProd]);
+
     return (
         <div className="productsDisp">
             {productsStore.length > 0 && (
@@ -136,6 +173,16 @@ const ProductsView = () => {
                             productCategory,
                             id,
                         } = product;
+                        const checkWishList = wishlistItems.some(
+                            (wishListProduct) => wishListProduct.id === id
+                        );
+                        const checkCartList = cartItems.some(
+                            (cartList) => cartList.id === id
+                        );
+
+                        const cartQuantity = checkCartList
+                            ? cartItems.find((a) => a.id === id).quantity
+                            : 0;
                         return (
                             <div className="product-card" key={id}>
                                 <div className="product-image">
@@ -178,13 +225,37 @@ const ProductsView = () => {
                                 </div>
                                 <div className="productBtns">
                                     <button
-                                        className="btn"
+                                        className={
+                                            checkWishList
+                                                ? "btn product-in"
+                                                : "btn"
+                                        }
                                         title="Add to Wishlist"
+                                        onClick={() =>
+                                            addToWishList({
+                                                id,
+                                                name: productName,
+                                                category: productCategory,
+                                            })
+                                        }
                                     >
                                         <FaHeart />
                                     </button>
-                                    <button className="btn" title="Add to Cart">
+                                    <button
+                                        onClick={() =>
+                                            addToCart({
+                                                id,
+                                                name: productName,
+                                                price: productPrice,
+                                            })
+                                        }
+                                        className="btn btn-cart"
+                                        title="Add to Cart"
+                                    >
                                         <FaCartPlus />
+                                        {cartQuantity > 0 && (
+                                            <span>{cartQuantity}</span>
+                                        )}
                                     </button>
                                 </div>
                             </div>

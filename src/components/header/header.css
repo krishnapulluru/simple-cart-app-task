@@ -1,6 +1,6 @@
 .header-cont {
     background: #fff;
-    box-shadow: 0 2px 6px #cecece;
+    box-shadow: 0 2px 6px #614087;
 }
 
 .header-cont nav {
@@ -11,6 +11,10 @@
     color: var(--red);
 }
 
+.head-title>img {
+    width: 10em;
+    filter: drop-shadow(2px 2px 6px #c0c0c0)
+}
 
 .header-cont>nav>.head-links>ul>li {
     padding: 10px;
